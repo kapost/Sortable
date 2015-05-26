@@ -34,7 +34,8 @@
 		onUpdate: 'handleUpdate',
 		onRemove: 'handleRemove',
 		onSort: 'handleSort',
-		onFilter: 'handleFilter'
+		onFilter: 'handleFilter',
+		onSetDisabled: 'setDisabled'
 	};
 
 
@@ -59,6 +60,11 @@
 		}
 
 		return dst;
+	}
+
+
+	function _setSortableDisabled(newVal) {
+		this._sortableInstance.option('disabled', newVal)
 	}
 
 
@@ -132,6 +138,12 @@
 
 			/** @namespace this.refs — http://facebook.github.io/react/docs/more-about-refs.html */
 			this._sortableInstance = Sortable.create((this.refs[options.ref] || this).getDOMNode(), copyOptions);
+
+			/**
+			 * @type {bool}
+			 * @public
+			 */
+			this[copyOptions.onSetDisabled] = _setSortableDisabled
 		},
 
 
